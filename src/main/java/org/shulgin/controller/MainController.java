@@ -23,9 +23,14 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(name="name", required=false, defaultValue="World") String name,
+    public String main(@RequestParam(name = "filter", required = false, defaultValue = "") String filter, @RequestParam(name="name", required=false, defaultValue="World") String name,
                            Map<String, Object> model) {
-        Iterable<Message> messages = messageRepo.findAll();
+        Iterable<Message> messages;
+        if(filter != null && !filter.isEmpty()) {
+            messages = messageRepo.findByTag(filter);
+        } else {
+            messages = messageRepo.findAll();
+        }
         model.put("messages", messages);
         return "main";
     }
@@ -40,18 +45,5 @@ public class MainController {
         message.setTag(tag);
         messageRepo.save(message);
         return "redirect:/main";
-    }
-
-    @PostMapping("/filter")
-    public String filter(@RequestParam String filter,
-                         Map<String, Object> model) {
-        Iterable<Message> messages;
-        if(filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
-        } else {
-            messages = messageRepo.findAll();
-        }
-        model.put("messages", messages);
-        return "main";
     }
 }
