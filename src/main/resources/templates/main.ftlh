@@ -1,12 +1,11 @@
 <#import "parts/common.ftlh" as c />
-<#import "parts/login.ftlh" as l />
 <@c.page>
-    <@l.logout />
     <div>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <input type="text" name="text" placeholder="Введите текст" />
             <input type="text" name="tag" placeholder="Тэг" />
-            <input type="hidden" name="_csrf" value="${_csrf.token}$">
+            <input type="file" name="file" />
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
             <button type="submit">Добавить</button>
         </form>
     </div>
@@ -23,6 +22,11 @@
             <b>${message.authorName}</b>
             <span>${message.text}</span>
             <i>${message.tag}</i>
+            <#if message.filePath??>
+                <img src="/img/${message.filePath}"/>
+            </#if>
         </div>
+    <#else>
+        No message
     </#list>
 </@c.page>

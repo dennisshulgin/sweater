@@ -13,6 +13,8 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User author;
 
+    private String filePath;
+
     public int getId() {
         return id;
     }
@@ -47,5 +49,13 @@ public class Message {
 
     public String getAuthorName() {
         return author == null ? "<none>" : author.getUsername();
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

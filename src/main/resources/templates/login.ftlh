@@ -2,5 +2,5 @@
 <#import "parts/login.ftlh" as l />
 
 <@c.page>
-    <@l.login "/login" "Войти" />
+    <@l.login "/login" "Sign in" false/>
 </@c.page>

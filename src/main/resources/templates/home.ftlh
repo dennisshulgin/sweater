@@ -1,4 +1,4 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
-<p>Click <a href="/main">here</a> to see a main.</p>
+    <h3>Hello, user!</h3>
 </@c.page>
