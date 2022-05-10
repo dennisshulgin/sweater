@@ -13,14 +13,24 @@
     <a class="btn btn-primary mb-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
         Add message
     </a>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse <#if message??>show</#if>" id="collapseExample">
         <form method="post" enctype="multipart/form-data">
             <div class="row g-3">
                 <div class="col-sm">
-                    <input type="text" class="form-control" name="text" placeholder="Input text" aria-label="text" />
+                    <input type="text" class="form-control ${(textError??)?string('is-invalid','')}" value="<#if message??>${message.text}</#if>" name="text" placeholder="Input text" aria-label="text" />
+                    <#if textError??>
+                    <div class="invalid-feedback">
+                        ${textError}
+                    </div>
+                    </#if>
                 </div>
                 <div class="col-sm">
-                    <input type="text" class="form-control" name="tag" placeholder="Tag" aria-label="tag"/>
+                    <input type="text" class="form-control ${(tagError??)?string('is-invalid','')}" value="<#if message??>${message.tag}</#if>" name="tag" placeholder="Tag" aria-label="tag"/>
+                    <#if tagError??>
+                        <div class="invalid-feedback">
+                            ${tagError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="col-sm">
                     <div class="mb-3">
@@ -35,7 +45,6 @@
         </form>
     </div>
     <div>
-
     </div>
     <div class="row">
     <#list messages as message>
